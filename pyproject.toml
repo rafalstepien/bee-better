@@ -7,7 +7,25 @@ authors = ["Rafał Stępień <rafal.stepien@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^4.0.6"
+black = "^22.6.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+pre-commit = "^2.20.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+force_grid_wrap = 0
+include_trailing_comma = true
+line_length = 120
+multi_line_output = 3
+use_parentheses = true
+
+[tool.black]
+line-length = 120
+target-version = ["py38"]
+
+[tool.coverage.run]
+omit = ["tests/*", "*__init__.py"]
