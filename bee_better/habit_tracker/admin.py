@@ -1,3 +1,5 @@
 from django.contrib import admin
+from habit_tracker.models import Habit, HabitTrackerUser
 
-# Register your models here.
+admin.site.register(Habit)
+admin.site.register(HabitTrackerUser)

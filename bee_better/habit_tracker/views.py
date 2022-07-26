@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    return render(request, "habit_tracker/index_page.html")
+
+
+def habits(request):
+    return render(request, "habit_tracker/habits.html")
