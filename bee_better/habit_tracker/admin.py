@@ -1,5 +1,5 @@
 from django.contrib import admin
-from habit_tracker.models import Habit, HabitTrackerUser
+from habit_tracker.models import Habit, HabitTrack
 
 admin.site.register(Habit)
-admin.site.register(HabitTrackerUser)
+admin.site.register(HabitTrack)

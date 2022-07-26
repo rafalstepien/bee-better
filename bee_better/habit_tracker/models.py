@@ -1,14 +1,33 @@
 import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 
 
 class Habit(models.Model):
-    habit_name: str = models.CharField(max_length=100)
+    """
+    Class responsible for modeling single habit with metadata.
+    """
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["user", "habit_name"], name="user_habit")]
+
+    user: str = models.ForeignKey(User, on_delete=models.CASCADE)
+    habit_name: str = models.CharField(max_length=50)
+    habit_description: str = models.CharField(max_length=200, default="")
+
+    def __str__(self):
+        return f"{self.habit_name.lower()} for {self.user.username}"
+
+
+class HabitTrack(models.Model):
+    """
+    Class responsible for modeling habit history.
+    """
+
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
     habit_date: datetime.date = models.DateField()
     habit_done: bool = models.BooleanField()
 
-
-class HabitTrackerUser(models.Model):
-    user = models.OneToOneField("auth.User", on_delete=models.CASCADE)
-    habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"Track of {self.habit}"

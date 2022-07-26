@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import habits, index
+from .views.views import habits, index
 
 urlpatterns = [
     path("", index, name="index"),
