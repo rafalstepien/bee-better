@@ -7,9 +7,12 @@ def index(request):
 
 
 def habits(request):
-    data_extractor = HabitsViewDataExtractor(request.user.id)
-    context = {
-        "column_names": data_extractor.columns,
-        "rows": data_extractor.get_rows_for_table(),
-    }
-    return render(request, "habit_tracker/habits.html", context=context)
+    if request.method == "POST":
+        pass
+    else:
+        data_extractor = HabitsViewDataExtractor(request.user.id)
+        context = {
+            "column_names": data_extractor.columns,
+            "rows": data_extractor.get_rows_for_table(),
+        }
+        return render(request, "habit_tracker/habits.html", context=context)

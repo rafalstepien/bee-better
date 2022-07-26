@@ -23,7 +23,6 @@ class HabitsViewDataExtractor:
         """
         Set the correct column names for table.
         """
-        habit_name = ["habit_name"]
         today = datetime.datetime.today()
         dates_before_today = [
             (today - datetime.timedelta(days=num_days)).strftime(self.DATETIME_FORMAT)
@@ -33,7 +32,7 @@ class HabitsViewDataExtractor:
             (today + datetime.timedelta(days=num_days)).strftime(self.DATETIME_FORMAT)
             for num_days in range(1, self.NUMBER_OF_DAYS_TO_DISPLAY_AFTER)
         ]
-        self.columns = habit_name + dates_before_today + dates_after_today
+        self.columns = ["Habit name"] + dates_before_today + dates_after_today
 
     def get_rows_for_table(self) -> List:
         """
@@ -43,9 +42,16 @@ class HabitsViewDataExtractor:
         return [self._get_one_row_for_table(habit) for habit in habits_for_given_user]
 
     def _get_one_row_for_table(self, habit: Habit):
+        """
+        Get single row for habit table. One row contains habit name + boolean values for given range of dates.
+        Here we call this range "track".
+        """
         return [habit.habit_name, *self._get_track_for_habit(habit)]
 
     def _get_track_for_habit(self, habit: Habit) -> List:
+        """
+        Gets history track for given habit.
+        """
         track = []
         for day in self.columns[1:]:
             day_in_datetime_format = datetime.datetime.strptime(day, self.DATETIME_FORMAT)
@@ -53,5 +59,5 @@ class HabitsViewDataExtractor:
             try:
                 track.append(track_for_given_day[0].habit_done)
             except IndexError:
-                track.append(None)
+                track.append("")
         return track
