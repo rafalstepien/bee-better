@@ -22,9 +22,9 @@
                         {% for column_value in row %}
                             {% if forloop.counter > 1 and forloop.counter < 9 %}
                                 {% if column_value == True %}
-                                    <td class="{{column_value|cell_conditional_formatting}}"><input type="checkbox" name="selected_options" value="column_value" checked></td>
+                                    <td id="{{forloop.counter}}-{{forloop.parentloop.counter}}" onclick="changeColor(this)"></td>
                                 {% else %}
-                                    <td class="{{column_value|cell_conditional_formatting}}"><input type="checkbox" name="selected_options" value="column_value"></td>
+                                    <td id="{{forloop.counter}}-{{forloop.parentloop.counter}}" onclick="changeColor(this)"></td>
                                 {% endif %}
 
                             {% else %}
@@ -37,6 +37,17 @@
                     </tbody>
                 </table>
                 <button type="button" class="btn btn-blue">Save</button>
+                <script>
+                    function changeColor(elem) {
+                        var green="rgb(189, 233, 186)";
+                        var red="rgb(245, 124, 103)";
+                        if ( elem.style.backgroundColor === green) {
+                            elem.style.backgroundColor = red;
+                        } else {
+                            elem.style.backgroundColor = green;
+                        }
+                    }
+                </script>
             </form>
         </div>
     </div>
