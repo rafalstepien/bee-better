@@ -2,6 +2,7 @@ from django.shortcuts import render
 from habit_tracker.common import ColorsHEX, ColorsRGB, is_ajax
 from habit_tracker.models import Habit, HabitTrack
 from habit_tracker.views.habits_view_data_extractor import HabitsViewDataExtractor
+from django.http import HttpResponse
 
 
 def index(request):
@@ -47,3 +48,10 @@ def update_habit(request):
         habit_track_object.save()
 
         return render(request, "habit_tracker/habits.html")
+
+
+def login(request):
+    return HttpResponse("Login page")
+
+def signup(request):
+    return HttpResponse("Sign up page")
