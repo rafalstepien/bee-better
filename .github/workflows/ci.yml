@@ -1,6 +1,10 @@
-name: test
+name: Habit tracker CI/CD
 
-on: pull_request
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   test:
