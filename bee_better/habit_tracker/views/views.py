@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from habit_tracker import utils
 from habit_tracker.views.habits_view_data_extractor import HabitsViewDataExtractor
 
 
@@ -16,3 +17,8 @@ def habits(request):
             "rows": data_extractor.get_rows_for_table(),
         }
         return render(request, "habit_tracker/habits.html", context=context)
+
+
+def update_habit(request):
+    print(request)
+    pass

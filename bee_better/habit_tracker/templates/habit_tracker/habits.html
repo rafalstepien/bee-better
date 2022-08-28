@@ -6,49 +6,59 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="panel panel-default col-sm-auto">
-            <form method="POST">
-                {% csrf_token %}
-                <table class="table table-dark table-responsive table-bordered caption text-dark">
-                    <thead>
+            <table class="table table-dark table-responsive table-bordered caption text-dark">
+                <thead>
                     <tr>
                         {% for column_name in column_names %}
-                        <th scope="col" class="text-light"> {{ column_name }}</th>
+                            <th scope="col" class="text-light"> {{ column_name }}</th>
                         {% endfor %}
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     {% for row in rows %}
                     <tr>
                         {% for column_value in row %}
                             {% if forloop.counter > 1 and forloop.counter < 9 %}
-                                {% if column_value == True %}
-                                    <td id="{{forloop.counter}}-{{forloop.parentloop.counter}}" onclick="changeColor(this)"></td>
-                                {% else %}
-                                    <td id="{{forloop.counter}}-{{forloop.parentloop.counter}}" onclick="changeColor(this)"></td>
-                                {% endif %}
-
+                                <td onclick="updateColor(this)"></td>
                             {% else %}
-                                <td class="text-light"> {{ column_value }}</td>
+                                <td class="text-light"> {{ column_value }} </td>
                             {% endif %}
-
                         {% endfor %}
                     </tr>
                     {% endfor %}
-                    </tbody>
-                </table>
-                <button type="button" class="btn btn-blue">Save</button>
-                <script>
-                    function changeColor(elem) {
-                        var green="rgb(189, 233, 186)";
-                        var red="rgb(245, 124, 103)";
-                        if ( elem.style.backgroundColor === green) {
-                            elem.style.backgroundColor = red;
-                        } else {
-                            elem.style.backgroundColor = green;
-                        }
-                    }
-                </script>
-            </form>
+                </tbody>
+            </table>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+            <script>
+                function ajaxCall() {
+                    var token = '{{csrf_token}}';
+                    $.ajax({
+                        headers: { "X-CSRFToken": token },
+                        type: 'POST',
+                        url: "{% url 'update_habit' %}",
+                        data: 'ABCDEFG',
+                        error: function() {
+                            alert("Something went wrong");
+                        },
+                        success: function() {
+                            alert("OK");
+                        },
+                    });
+                }
+
+                function updateColor(elem) {
+                    var green="rgb(189, 233, 186)";
+                    var red="rgb(245, 124, 103)";
+
+                    if ( elem.style.backgroundColor === green) {
+                        elem.style.backgroundColor = red;
+                    } else {
+                        elem.style.backgroundColor = green;
+                    };
+
+                    ajaxCall();
+                }
+            </script>
         </div>
     </div>
 </div>
