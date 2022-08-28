@@ -1,7 +1,7 @@
 import datetime
 from typing import List, Tuple
 
-from habit_tracker.models import Habit, HabitTrack
+from habit_tracker.models import AJAXRequestData, Habit, HabitTrack
 
 
 class HabitsViewDataExtractor:
@@ -30,14 +30,17 @@ class HabitsViewDataExtractor:
         return [habit.habit_name for habit in self.habits]
 
     def get_habit_name_and_date_from_request_body(self, request_body: bytes) -> Tuple[str, str]:
-        row_id, column_id = self._extract_row_and_column_id(request_body)
-        column_names = self.columns
+        request_data = self._extract_request_data(request_body)
         row_names = self.get_all_habit_names_for_user()
-        return row_names[row_id], column_names[column_id]
+        return row_names[request_data.row_id], self.columns[request_data.column_id], request_data.habit_value
 
     @staticmethod
-    def _extract_row_and_column_id(request_body: bytes) -> List[int]:
-        return [int(id_number) - 1 for id_number in request_body.decode("utf-8").split("-")]
+    def _extract_request_data(request_body: bytes) -> List[int]:
+        cell_identifier, habit_value = request_body.decode("utf-8").split("&")
+        row_id, column_id = cell_identifier.split("=")[1].split("-")
+        return AJAXRequestData(
+            row_id=int(row_id) - 1, column_id=int(column_id) - 1, habit_value=bool(habit_value.split("=")[1])
+        )
 
     def _get_habit_column_names(self):
         """

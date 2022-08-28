@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from pydantic import BaseModel
 
 
 class Habit(models.Model):
@@ -31,3 +32,9 @@ class HabitTrack(models.Model):
 
     def __str__(self):
         return f"Track of {self.habit}"
+
+
+class AJAXRequestData(BaseModel):
+    row_id: int
+    column_id: int
+    habit_value: bool

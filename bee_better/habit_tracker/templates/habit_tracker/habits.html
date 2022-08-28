@@ -36,13 +36,13 @@
             </table>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
             <script>
-                function ajaxCall(element_id) {
+                function ajaxCall(element_id, habitDone) {
                     var token = '{{csrf_token}}';
                     $.ajax({
                         headers: { "X-CSRFToken": token },
                         type: 'POST',
                         url: "{% url 'update_habit' %}",
-                        data: element_id,
+                        data: {element_id, habitDone},
                         error: function() {
                             alert("Something went wrong");
                         },
@@ -55,11 +55,13 @@
 
                     if ( elem.style.backgroundColor === green) {
                         elem.style.backgroundColor = red;
+                        habitDone = "False";
                     } else {
                         elem.style.backgroundColor = green;
+                        habitDone = "True";
                     };
 
-                    ajaxCall(elem.id);
+                    ajaxCall(elem.id, habitDone);
                 }
             </script>
         </div>

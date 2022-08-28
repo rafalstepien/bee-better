@@ -19,7 +19,7 @@ def habits(request):
 
 def update_habit(request):
     if is_ajax(request):
-        habit_name, habit_date = HabitsViewDataExtractor(request.user.id).get_habit_name_and_date_from_request_body(
-            request.body
-        )
-        print(habit_name, habit_date)
+        habit_name, habit_date, habit_value = HabitsViewDataExtractor(
+            request.user.id
+        ).get_habit_name_and_date_from_request_body(request.body)
+        pass
