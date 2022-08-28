@@ -51,11 +51,6 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       #----------------------------------------------
-      #              run linters and formatters
-      #----------------------------------------------
-      - name: Run black, flake8 and isort
-        run: isort . && flake8
-      #----------------------------------------------
       #              run test suite
       #----------------------------------------------
       - name: Run tests
