@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
@@ -54,11 +54,11 @@ jobs:
       #              run linters and formatters
       #----------------------------------------------
       - name: Run black, flake8 and isort
-        run: make lint
+        run: black . && isort . && flake8
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
       - name: Run tests
         run: |
           source .venv/bin/activate
-          make test
+          pytest bee_better/
