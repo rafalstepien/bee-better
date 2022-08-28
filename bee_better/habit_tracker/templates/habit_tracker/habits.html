@@ -22,7 +22,7 @@
                         {% for column_value in row %}
                             {% with column_number=forloop.counter %}
                                 {% if column_number > 1 and column_number < 9 %}
-                                    <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"></td>
+                                    <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)" style="{{column_value|cell_conditional_formatting}}"></td>
                                 {% else %}
                                     <td id="{{ row_number }}-{{ column_number }}" class="text-light"> {{ column_value }} </td>
                                 {% endif %}
@@ -50,14 +50,11 @@
                 }
 
                 function updateColor(elem) {
-                    var green="rgb(189, 233, 186)";
-                    var red="rgb(245, 124, 103)";
-
-                    if ( elem.style.backgroundColor === green) {
-                        elem.style.backgroundColor = red;
+                    if ( elem.style.backgroundColor === "{{colors_rgb.green}}") {
+                        elem.style.backgroundColor = "{{colors_rgb.red}}";
                         habitDone = "False";
                     } else {
-                        elem.style.backgroundColor = green;
+                        elem.style.backgroundColor = "{{colors_rgb.green}}";
                         habitDone = "True";
                     };
 

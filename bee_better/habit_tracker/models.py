@@ -34,7 +34,13 @@ class HabitTrack(models.Model):
         return f"Track of {self.habit}"
 
 
-class AJAXRequestData(BaseModel):
+class RawAJAXRequestData(BaseModel):
     row_id: int
     column_id: int
     habit_value: bool
+
+
+class ParsedAJAXRequestData(BaseModel):
+    name: str
+    date: str
+    value: bool
