@@ -12,6 +12,10 @@ isort = "^5.10.1"
 flake8 = "^4.0.1"
 pre-commit = "^2.20.0"
 pydantic = "^1.9.2"
+pytest = "^7.1.2"
+pytest-mock = "^3.8.2"
+pytest-django = "^4.5.2"
+freezegun = "^1.2.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -30,3 +34,6 @@ target-version = ["py38"]
 
 [tool.coverage.run]
 omit = ["tests/*", "*__init__.py"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "bee_better.settings"
