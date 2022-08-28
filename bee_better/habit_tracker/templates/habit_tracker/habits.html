@@ -16,32 +16,35 @@
                 </thead>
                 <tbody>
                     {% for row in rows %}
+                    {% with header=column_names %}
+                    {% with row_number=forloop.counter %}
                     <tr>
                         {% for column_value in row %}
-                            {% if forloop.counter > 1 and forloop.counter < 9 %}
-                                <td onclick="updateColor(this)"></td>
-                            {% else %}
-                                <td class="text-light"> {{ column_value }} </td>
-                            {% endif %}
+                            {% with column_number=forloop.counter %}
+                                {% if column_number > 1 and column_number < 9 %}
+                                    <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"></td>
+                                {% else %}
+                                    <td id="{{ row_number }}-{{ column_number }}" class="text-light"> {{ column_value }} </td>
+                                {% endif %}
+                            {% endwith %}
                         {% endfor %}
                     </tr>
+                    {% endwith %}
+                    {% endwith %}
                     {% endfor %}
                 </tbody>
             </table>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
             <script>
-                function ajaxCall() {
+                function ajaxCall(element_id) {
                     var token = '{{csrf_token}}';
                     $.ajax({
                         headers: { "X-CSRFToken": token },
                         type: 'POST',
                         url: "{% url 'update_habit' %}",
-                        data: 'ABCDEFG',
+                        data: element_id,
                         error: function() {
                             alert("Something went wrong");
-                        },
-                        success: function() {
-                            alert("OK");
                         },
                     });
                 }
@@ -56,7 +59,7 @@
                         elem.style.backgroundColor = green;
                     };
 
-                    ajaxCall();
+                    ajaxCall(elem.id);
                 }
             </script>
         </div>
