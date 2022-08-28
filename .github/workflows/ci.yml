@@ -54,7 +54,7 @@ jobs:
       #        run linters and formatters
       #----------------------------------------------
       - name: Run linters and formatters
-      - uses: ricardochaves/python-lint@v1.4.0
+        uses: ricardochaves/python-lint@v1.4.0
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
