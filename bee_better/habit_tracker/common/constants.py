@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 COLOR_PALETTE_DARK_PURPLE = ["#000000", "#150050", "#3F0071", "#610094"]
 COLOR_PALETTE_DARK_BLUE = ["#26282B", "#353941", "#00A9CB", "#90B8F8"]
 

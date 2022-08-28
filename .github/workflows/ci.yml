@@ -53,8 +53,10 @@ jobs:
       #----------------------------------------------
       #        run linters and formatters
       #----------------------------------------------
-      - name: Run linters and formatters
-        uses: ricardochaves/python-lint@v1.4.0
+      - name: Run black, flake8 and isort
+        run: |
+          pip install black flake8 isort
+          black . && isort . && flake8 .
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------

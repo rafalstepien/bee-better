@@ -1,8 +1,8 @@
 import datetime
 from typing import List
 
-from habit_tracker.models import RawAJAXRequestData, Habit, HabitTrack, ParsedAJAXRequestData
 from habit_tracker.common import _date_from_slash_to_dash
+from habit_tracker.models import Habit, HabitTrack, ParsedAJAXRequestData, RawAJAXRequestData
 
 
 class HabitsViewDataExtractor:
@@ -36,7 +36,7 @@ class HabitsViewDataExtractor:
         return ParsedAJAXRequestData(
             name=row_names[request_data.row_id],
             date=_date_from_slash_to_dash(self.columns[request_data.column_id]),
-            value=request_data.habit_value
+            value=request_data.habit_value,
         )
 
     @staticmethod
@@ -44,9 +44,7 @@ class HabitsViewDataExtractor:
         cell_identifier, habit_value = request_body.decode("utf-8").split("&")
         row_id, column_id = cell_identifier.split("=")[1].split("-")
         habit_value = True if habit_value.split("=")[1] == "True" else False
-        return RawAJAXRequestData(
-            row_id=int(row_id) - 1, column_id=int(column_id) - 1, habit_value=habit_value
-        )
+        return RawAJAXRequestData(row_id=int(row_id) - 1, column_id=int(column_id) - 1, habit_value=habit_value)
 
     def _get_habit_column_names(self):
         """
