@@ -54,7 +54,7 @@ jobs:
       #              run linters and formatters
       #----------------------------------------------
       - name: Run black, flake8 and isort
-        run: black . && isort . && flake8
+        run: isort . && flake8
       #----------------------------------------------
       #              run test suite
       #----------------------------------------------
