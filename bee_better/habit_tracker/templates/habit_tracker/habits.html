@@ -1,40 +1,41 @@
 {% extends "habit_tracker/base.html" %}
 {% block content %}
 {% load custom_filters %}
-<h1 class="text-center">Your habits history</h1>
-<a href="{% url 'index' %}">Come back to main page</a>
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="panel panel-default col-sm-auto">
-            <table class="table table-dark table-responsive table-bordered caption text-dark">
+<div class="content">
+    <div class="container">
+        <h2 class="mb-5"></h2>
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
                 <thead>
-                    <tr>
-                        {% for column_name in column_names %}
-                            <th scope="col" class="text-light"> {{ column_name }}</th>
-                        {% endfor %}
-                    </tr>
+                <tr>
+                    {% for column_name in column_names %}
+                    <th scope="col" class="text-light"> {{ column_name }}</th>
+                    {% endfor %}
+                </tr>
                 </thead>
                 <tbody>
-                    {% for row in rows %}
-                    {% with header=column_names %}
-                    {% with row_number=forloop.counter %}
-                    <tr>
-                        {% for column_value in row %}
-                            {% with column_number=forloop.counter %}
-                                {% if column_number > 1 and column_number < 9 %}
-                                    <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)" style="{{column_value|cell_conditional_formatting}}"></td>
-                                {% else %}
-                                    <td id="{{ row_number }}-{{ column_number }}" class="text-light"> {{ column_value }} </td>
-                                {% endif %}
-                            {% endwith %}
-                        {% endfor %}
-                    </tr>
-                    {% endwith %}
+                {% for row in rows %}
+                {% with header=column_names %}
+                {% with row_number=forloop.counter %}
+                <tr>
+                    {% for column_value in row %}
+                    {% with column_number=forloop.counter %}
+                    {% if column_number > 1 and column_number < 9 %}
+                    <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"
+                        style="{{column_value|cell_conditional_formatting}}"></td>
+                    {% elif column_number == 1 %}
+                        <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
+                    {% else %}
+                    <td id="{{ row_number }}-{{ column_number }}" class="text-light"></td>
+                    {% endif %}
                     {% endwith %}
                     {% endfor %}
+                </tr>
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
                 </tbody>
             </table>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
             <script>
                 function ajaxCall(element_id, habitDone) {
                     var token = '{{csrf_token}}';
@@ -65,3 +66,5 @@
     </div>
 </div>
 {% endblock content %}
+
+
