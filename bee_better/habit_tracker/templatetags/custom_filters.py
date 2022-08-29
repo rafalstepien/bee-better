@@ -14,5 +14,5 @@ def cell_conditional_formatting(variable: Union[bool, None]):
         return "background-color: #bde9ba;"  # if cell has value of "True"
     else:
         if variable == "":
-            return "background-color: #00A9CB;"  # if cell has no value
+            return ""  # if cell has no value
         return "background-color: #f57c67;"  # if cell has value of "False"

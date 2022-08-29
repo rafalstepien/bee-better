@@ -9,19 +9,17 @@ body {
   line-height: 1.5em;
   padding: 0;
   margin: 0;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: #323232;
+  font-weight: 300;
+}
+
+span {
+    color: #fff;
 }
 
 section {
   height: 100vh;
-}
-
-/*-------------Helpers-------------*/
-.skew {
-  transform: skew(-20deg);
-}
-
-.un-skew {
-  transform: skew(20deg);
 }
 
 /*-------------Nav-------------*/
@@ -36,7 +34,7 @@ section {
 }
 
 #nav {
-  background-color:  #343036;
+  background-color:  #252525;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -70,25 +68,12 @@ h1.logo {
   color: #fff;
 }
 
-h1.logo a, a:active, a:hover, a:visited {
-  text-decoration: none;
-  color: #3c373e;
-}
-
 .nav-link {
   text-transform: uppercase;
   text-align: center;
   border-top: 0.5px solid #ddd;
 }
 
-a:link, a:visited, a:active {
-  text-decoration: none;
-  color: #f8f9fa;
-}
-
-a:hover {
-  text-decoration: underline;
-}
 
 .right {
   display: flex;
@@ -130,50 +115,10 @@ a:hover {
     display: none;
   }
 
-  .nav a:link.active, a:visited.active, a:active.active {
-    background: #f857a8;
-    background: -webkit-linear-gradient(45deg, #f857a8, #ff5858);
-    background: linear-gradient(45deg, #f857a8, #ff5858);
-    color: #fff;
-  }
-
-  .nav-link-span {
-    transform: skew(20deg);
-    display: inline-block;
-  }
-
-  .nav-link {
-    transform: skew(-20deg);
-    color: #777;
-    text-decoration: none;
-  }
   .nav-link:last-child {
     padding-right: 3em;
   }
-
-  a:hover.nav-link:not(.active) {
-    color: #a6a6a6;
-    transition-duration: 0.5s;
-
-  }
 }
-@keyframes logo-hover {
-  20% {
-    padding-right: 0em;
-  }
-  100% {
-    padding-right: 5em;
-  }
-}
-
-body {
-  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  background-color: #3c373e;
-  font-weight: 300; }
-
-p {
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 300; }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -190,20 +135,8 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: .2rem;
 }
 
-
-a {
-  -webkit-transition: .3s all ease;
-  -o-transition: .3s all ease;
-  transition: .3s all ease; }
-  a, a:hover {
-    text-decoration: none !important; }
-
 .content {
   padding: 7rem 0; }
-
-h2 {
-  font-size: 20px;
-  color: #fff; }
 
 .custom-table {
   min-width: 900px; }

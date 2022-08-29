@@ -11,7 +11,7 @@ class HabitsViewDataExtractor:
     """
 
     NUMBER_OF_DAYS_TO_DISPLAY_BEFORE = 7
-    NUMBER_OF_DAYS_TO_DISPLAY_AFTER = 2
+    NUMBER_OF_DAYS_TO_DISPLAY_AFTER = 1
     DATETIME_FORMAT = "%d/%m/%Y"
 
     def __init__(self, user_id: int):
