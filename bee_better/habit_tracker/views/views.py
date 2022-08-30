@@ -1,14 +1,18 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
 from habit_tracker.common import ColorsHEX, ColorsRGB, is_ajax
+from habit_tracker.forms import CreateUserForm
 from habit_tracker.models import Habit, HabitTrack
 from habit_tracker.views.habits_view_data_extractor import HabitsViewDataExtractor
-from django.http import HttpResponse
 
 
 def index(request):
     return render(request, "habit_tracker/index_page.html")
 
 
+@login_required(login_url="login_user")
 def habits(request):
     if request.method == "GET":
         data_extractor = HabitsViewDataExtractor(request.user.id)
@@ -29,6 +33,12 @@ def habits(request):
         return render(request, "habit_tracker/habits.html", context=context)
 
 
+@login_required(login_url="login_user")
+def add_habit(request):
+    pass
+
+
+@login_required(login_url="login_user")
 def update_habit(request):
     if is_ajax(request) and request.method == "POST":
         habit_request_data = HabitsViewDataExtractor(request.user.id).get_habit_data_from_request_body(request.body)
@@ -50,8 +60,46 @@ def update_habit(request):
         return render(request, "habit_tracker/habits.html")
 
 
-def login(request):
-    return HttpResponse("Login page")
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect("index")
 
-def signup(request):
-    return HttpResponse("Sign up page")
+    else:
+        if request.method == "POST":
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect("habits")
+
+            else:
+                messages.info(request, "Username or password is incorrect.")
+
+        context = {}
+        return render(request, "habit_tracker/login.html", context)
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect("index")
+
+    else:
+        form = CreateUserForm()
+
+        if request.method == "POST":
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "User created, please login now!")
+                return redirect("login_user")
+
+        context = {"form": form}
+        return render(request, "habit_tracker/register.html", context)
+
+
+def logout_user(request):
+    logout(request)
+    return redirect("index")

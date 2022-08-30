@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from habit_tracker.models import Habit
 
+
 @pytest.fixture
 def example_list_of_habits():
     return [

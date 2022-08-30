@@ -1,14 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>bee-better</title>
-</head>
-<body>
-    <h1>This is the index page of bee-better</h1>
-    <ul>
-        <li><a href="{% url 'habits' %}">View your habits</a></li>
-        <li>Login</li>
-    </ul>
-</body>
-</html>
+{% extends "habit_tracker/base.html" %}
+{% block content %}
+{% load static %}
+<style>
+.text {
+  color: #ffffff;
+  position: absolute;
+  opacity: 0.7;
+  top: 20%;
+  left: 0%;
+  text-align: center;
+  margin-left: 350px;
+  margin-right: 350px;
+  font-weight: 400;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-transform: uppercase;
+  font-size: 24px;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; color: #393E46; transition-duration: 2s;}
+a:active { text-decoration: none; }
+a {color: #bde9ba;}
+
+.image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+<!--    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url( '/static/img/back.jpg' );-->
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'habit_tracker/fonts/icomoon/style.css' %}">
+<div class="image">
+    <div class="content">
+        <div class="container">
+            {% if user.is_authenticated %}
+            <h1 class="text text-light">
+                <a href="{% url 'habits' %}"> Browse</a> your habits, see meaningful insights and become better version of yourself every day.
+            </h1>
+            {% else %}
+            <h1 class="text">
+                Track your habits today.
+                <a href="{% url 'login_user' %}"> Login </a> to existing account or
+                <a href="{% url 'register' %}"> Sign Up </a> to create your personal habit tracker.
+            </h1>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
