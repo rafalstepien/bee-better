@@ -15,7 +15,7 @@ class Habit(models.Model):
 
     user: str = models.ForeignKey(User, on_delete=models.CASCADE)
     habit_name: str = models.CharField(max_length=50)
-    habit_description: str = models.CharField(max_length=200, default="")
+    habit_description: str = models.CharField(max_length=200, default="No description")
 
     def __str__(self):
         return f"{self.habit_name.lower()} for {self.user.username}"

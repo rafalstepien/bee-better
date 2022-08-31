@@ -24,7 +24,7 @@
                     <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"
                         style="{{column_value|cell_conditional_formatting}}"></td>
                     {% elif column_number == 1 %}
-                        <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
+                    <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
                     {% else %}
                     <td id="{{ row_number }}-{{ column_number }}" class="text-light"></td>
                     {% endif %}
@@ -36,6 +36,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <a href="{% url 'add_habit' %}">Add habit</a>
             <script>
                 function ajaxCall(element_id, habitDone) {
                     var token = '{{csrf_token}}';
@@ -65,6 +66,7 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
 
 
