@@ -24,7 +24,7 @@
                     <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"
                         style="{{column_value|cell_conditional_formatting}}"></td>
                     {% elif column_number == 1 %}
-                        <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
+                    <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
                     {% else %}
                     <td id="{{ row_number }}-{{ column_number }}" class="text-light"></td>
                     {% endif %}
@@ -36,35 +36,58 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <script>
-                function ajaxCall(element_id, habitDone) {
-                    var token = '{{csrf_token}}';
-                    $.ajax({
-                        headers: { "X-CSRFToken": token },
-                        type: 'POST',
-                        url: "{% url 'update_habit' %}",
-                        data: {element_id, habitDone},
-                        error: function() {
-                            alert("Something went wrong");
-                        },
-                    });
-                }
-
-                function updateColor(elem) {
-                    if ( elem.style.backgroundColor === "{{colors_rgb.green}}") {
-                        elem.style.backgroundColor = "{{colors_rgb.red}}";
-                        habitDone = "False";
-                    } else {
-                        elem.style.backgroundColor = "{{colors_rgb.green}}";
-                        habitDone = "True";
-                    };
-
-                    ajaxCall(elem.id, habitDone);
-                }
-            </script>
+        </div>
+        <div class="mt-3 login_container">
+            <a class="btn login_btn" href="{% url 'add_habit' %}">Add habit</a>
         </div>
     </div>
 </div>
+<script>
+    function ajaxCall(element_id, habitDone) {
+        var token = '{{csrf_token}}';
+        $.ajax({
+            headers: { "X-CSRFToken": token },
+            type: 'POST',
+            url: "{% url 'update_habit' %}",
+            data: {element_id, habitDone},
+            error: function() {
+                alert("Something went wrong");
+            },
+        });
+    }
+
+    function updateColor(elem) {
+        if ( elem.style.backgroundColor === "{{colors_rgb.green}}") {
+            elem.style.backgroundColor = "{{colors_rgb.red}}";
+            habitDone = "False";
+        } else {
+            elem.style.backgroundColor = "{{colors_rgb.green}}";
+            habitDone = "True";
+        };
+
+        ajaxCall(elem.id, habitDone);
+    }
+</script>
+<style>
+.login_btn {
+    width: 15%;
+    background: #252525 !important;
+    color: white !important;
+}
+
+.login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+.login_btn:hover {
+    background: #212121 !important;
+    box-shadow: none !important;
+    transition-duration: 0.5s;
+    outline: 0px !important;
+}
+
+</style>
 {% endblock content %}
 
 

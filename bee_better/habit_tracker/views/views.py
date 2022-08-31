@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from habit_tracker.common import ColorsHEX, ColorsRGB, is_ajax
-from habit_tracker.forms import CreateUserForm
+from habit_tracker.forms import AddHabitForm, CreateUserForm
 from habit_tracker.models import Habit, HabitTrack
 from habit_tracker.views.habits_view_data_extractor import HabitsViewDataExtractor
 
@@ -31,11 +32,6 @@ def habits(request):
             },
         }
         return render(request, "habit_tracker/habits.html", context=context)
-
-
-@login_required(login_url="login_user")
-def add_habit(request):
-    pass
 
 
 @login_required(login_url="login_user")
@@ -78,8 +74,7 @@ def login_user(request):
             else:
                 messages.info(request, "Username or password is incorrect.")
 
-        context = {}
-        return render(request, "habit_tracker/login.html", context)
+        return render(request, "habit_tracker/login.html")
 
 
 def register(request):
@@ -103,3 +98,23 @@ def register(request):
 def logout_user(request):
     logout(request)
     return redirect("index")
+
+
+@login_required(login_url="login_user")
+def add_habit(request):
+    if request.method == "POST":
+        form = AddHabitForm(request.POST)
+        if form.is_valid():
+            user = User.objects.filter(id=request.user.id).first()
+            new_habit = Habit(user=user, habit_name=form.data.get("habit_name"))
+            new_habit.save()
+            return redirect("habits")
+    else:
+        form = AddHabitForm()
+    return render(
+        request,
+        "habit_tracker/add_habit.html",
+        {
+            "form": form,
+        },
+    )

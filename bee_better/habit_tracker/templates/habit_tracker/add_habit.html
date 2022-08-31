@@ -23,7 +23,6 @@
 			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			border-radius: 5px;
-
 		}
 
 		.form_container {
@@ -39,6 +38,7 @@
 			background: #323232 !important;
 			color: white !important;
 		}
+
 		.login_btn:focus {
 			box-shadow: none !important;
 			outline: 0px !important;
@@ -81,7 +81,7 @@
     <div class="d-flex justify-content-center h-100">
         <div class="user_card">
             <div class="d-flex justify-content-center">
-                <h3 id="form-title">LOGIN</h3>
+                <h3 id="form-title">ADD HABIT</h3>
             </div>
             <div class="d-flex justify-content-center form_container">
                 <form method="POST" action="">
@@ -90,29 +90,16 @@
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" name="username" placeholder="Username..." class="form-control">
-                    </div>
-                    <div class="input-group mb-2">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password" name="password" placeholder="Password..." class="form-control">
+                        <input type="text" name="habit_name" placeholder="Habit name..." class="form-control">
                     </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
-                        <input class="btn login_btn" type="submit" value="Login">
+                        <input class="btn login_btn" type="submit" value="Add">
                     </div>
                 </form>
             </div>
-
             {% for message in messages %}
             <p id="messages"> {{ message }} </p>
             {% endfor %}
-
-            <div class="mt-4">
-                <div class="d-flex justify-content-center links">
-                    Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>
