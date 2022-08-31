@@ -20,13 +20,15 @@
                 <tr>
                     {% for column_value in row %}
                     {% with column_number=forloop.counter %}
-                    {% if column_number > 1 and column_number < 9 %}
+                    {% if column_number > 2 and column_number < 10 %}
                     <td id="{{ row_number }}-{{ column_number }}" onclick="updateColor(this)"
                         style="{{column_value|cell_conditional_formatting}}"></td>
                     {% elif column_number == 1 %}
-                    <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
+                        <td><button id="{{ row_number }}-{{ column_number }}" class="btn login_btn" style="text-align: center; padding-right: 25px;" onclick="removeHabitFromDatabase(this)">⊖</button></td>
+                    {% elif column_number == 2 %}
+                        <th scope="col" class="index-row text-light" style="font-weight: bold;">{{ column_value }}</th>
                     {% else %}
-                    <td id="{{ row_number }}-{{ column_number }}" class="text-light"></td>
+                        <td id="{{ row_number }}-{{ column_number }}" class="text-light"></td>
                     {% endif %}
                     {% endwith %}
                     {% endfor %}
@@ -43,7 +45,24 @@
     </div>
 </div>
 <script>
-    function ajaxCall(element_id, habitDone) {
+    function removeHabitFromDatabase(element) {
+        var token = '{{csrf_token}}';
+        var id = element.id;
+        $.ajax({
+                headers: { "X-CSRFToken": token },
+                type: 'POST',
+                url: "{% url 'remove_habit' %}",
+                data: {id},
+                error: function() {
+                    alert("Something went wrong");
+                },
+                success: function() {
+                    location.reload();
+                }
+            });
+    }
+
+    function updateHabitDatabase(element_id, habitDone) {
         var token = '{{csrf_token}}';
         $.ajax({
             headers: { "X-CSRFToken": token },
@@ -65,8 +84,9 @@
             habitDone = "True";
         };
 
-        ajaxCall(elem.id, habitDone);
+        updateHabitDatabase(elem.id, habitDone);
     }
+
 </script>
 <style>
 .login_btn {
@@ -86,6 +106,7 @@
     transition-duration: 0.5s;
     outline: 0px !important;
 }
+
 
 </style>
 {% endblock content %}

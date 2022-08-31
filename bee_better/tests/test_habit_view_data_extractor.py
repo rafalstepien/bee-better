@@ -10,6 +10,7 @@ def test_extractor_initializes_correctly(mocker, example_list_of_habits):
     extractor = HabitsViewDataExtractor(1)
 
     assert extractor.columns == [
+        "",
         "Habit name",
         "22/08/2022",
         "23/08/2022",
@@ -29,9 +30,9 @@ def test_get_rows_for_table(mocker, example_list_of_habits):
     extractor = HabitsViewDataExtractor(1)
 
     assert extractor.get_rows_for_table() == [
-        ["habit_1", "", "", "", "", "", "", ""],
-        ["habit_2", "", "", "", "", "", "", ""],
-        ["habit_3", "", "", "", "", "", "", ""],
+        ["", "habit_1", "", "", "", "", "", "", ""],
+        ["", "habit_2", "", "", "", "", "", "", ""],
+        ["", "habit_3", "", "", "", "", "", "", ""],
     ]
 
 
@@ -46,4 +47,4 @@ def test_get_habit_data_from_request_body(mocker, example_list_of_habits):
 
     data = HabitsViewDataExtractor(1).get_habit_data_from_request_body(bytes("element_id=2-3&habitDone=False", "utf-8"))
 
-    assert data == ParsedAJAXRequestData(name="habit_2", date="2022-08-23", value=False)
+    assert data == ParsedAJAXRequestData(name="habit_2", date="2022-08-22", value=False)

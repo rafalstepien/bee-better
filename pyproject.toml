@@ -6,7 +6,7 @@ authors = ["Rafał Stępień <rafal.stepien@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Django = "^4.0.6"
+Django = "4.0.7"
 black = "^22.6.0"
 isort = "^5.10.1"
 flake8 = "^4.0.1"

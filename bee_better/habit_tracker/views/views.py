@@ -118,3 +118,11 @@ def add_habit(request):
             "form": form,
         },
     )
+
+
+@login_required(login_url="login_user")
+def remove_habit(request):
+    if request.method == "POST":
+        habit_request_data = HabitsViewDataExtractor(request.user.id).get_habit_data_from_request_body(request.body)
+        Habit.objects.filter(user=request.user.id, habit_name=habit_request_data.name).delete()
+        return render(request, "habit_tracker/habits.html")
