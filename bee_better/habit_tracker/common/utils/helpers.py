@@ -11,4 +11,7 @@ def _date_from_slash_to_dash(date: str) -> str:
     """
     Converts date from DD/MM/YYYY format to YYYY-MM-DD format.
     """
-    return datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    try:
+        return datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    except ValueError:
+        return ""

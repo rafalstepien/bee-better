@@ -101,7 +101,7 @@ python-versions = "*"
 
 [[package]]
 name = "django"
-version = "4.0.6"
+version = "4.0.7"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
@@ -456,7 +456,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "c1e4a49a679fa1c54bd75cede0a28c5e8848e263d3e89ca7fa33b082d5d475ce"
+content-hash = "edcbc7d04cf6c003e7eb51bedd86f40e20ffd195df871cfb6e77ce8d6ec34779"
 
 [metadata.files]
 asgiref = [
